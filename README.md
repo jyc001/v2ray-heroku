@@ -24,9 +24,7 @@
 
 > 保持安全最简单的方式就是，保持软件更新。
 
-## 一键部署
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/zizifn/v2ray-heroku/tree/main)
 
 ## Github Actions 管理
 
@@ -100,54 +98,10 @@ Actions
 
 ![start](./readme-data/start.jpg)
 
-## 建立 cloudflare worker
-
-可以参考 开头的视频。代码如下。
-
-```javascript
-addEventListener("fetch", (event) => {
-  let url = new URL(event.request.url);
-  url.hostname = "你的heroku的hostname";
-  let request = new Request(url, event.request);
-  event.respondWith(fetch(request));
-});
-```
-
-为 worker 选择速度更快的 IP。
-https://github.com/badafans/better-cloudflare-ip
 
 ## VLESS websocket 客户端配置
 
-### JSON
 
-```json
-"outbounds": [
-        {
-            "protocol": "vless",
-            "settings": {
-                "vnext": [
-                    {
-                        "address": "***.herokuapp.com", // heroku app URL 或者 cloudflare worker url/ip
-                        "port": 443,
-                        "users": [
-                            {
-                                "id": "", // 填写你的 UUID
-                                "encryption": "none"
-                            }
-                        ]
-                    }
-                ]
-            },
-            "streamSettings": {
-                "network": "ws",
-                "security": "tls",
-                "tlsSettings": {
-                    "serverName": "***.herokuapp.com" // heroku app host 或者 cloudflare worker host
-                }
-              }
-          }
-    ]
-```
 
 ### QV2ray
 
